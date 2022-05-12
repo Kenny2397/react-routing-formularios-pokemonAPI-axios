@@ -1,23 +1,24 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
-const People = ({url}) => {
+const PeopleId = ({url}) => {
     const [data, setData] = useState({});
     const [error, setError] = useState(false);
-
-    useEffect(() =>{
-        axios.get(`${url}`)
+    const {id} = useParams();
+    
+    useEffect(() => {
+        axios.get(`${url}${id}`)
         .then(res=>{
-            console.log(res);
-            setData(res.data)
+            console.log(res); 
+            setData(res.data);
             setError(false);
         })
         .catch(err => {
             console.log(err);
             setError(true);
         });
-    }, [url])
-
+    }, [url,id]);
 
     if(!error){
         return (
@@ -42,7 +43,6 @@ const People = ({url}) => {
             </div>
         );
     }
-    
 
 }
-export default People;
+export default PeopleId;

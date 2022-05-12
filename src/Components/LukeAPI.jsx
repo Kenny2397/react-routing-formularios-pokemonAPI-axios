@@ -5,6 +5,7 @@ import Films from "./Films";
 import Planets from "./planets";
 import Species from "./Species";
 import Vehicles from "./Vehicles";
+import Starships from "./Starships";
 
 const LukeAPI = () => {
     const [obj, setObj] = useState({});
@@ -65,6 +66,8 @@ const LukeAPI = () => {
                     <Species url = {buscar}/>:
                     category === obj.vehicles & buscar !== ""?
                     <Vehicles url={buscar} />:
+                    category === obj.starships & buscar !== ""?
+                    <Starships url ={buscar} />:
                     null
                 }
             </div>

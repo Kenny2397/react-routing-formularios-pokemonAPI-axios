@@ -19,17 +19,7 @@ const Vehicles = ({url}) => {
         });
     }, [url])
 
-    // if(! error){
-    //     return (
-    //         <div className="container">
-    //             <h1>{data.name}</h1>
-    //             <p>model:{data.model}</p>
-    //             <p>surface_water: {data.lenght}</p>
-    //             <p>crew: {data.crew}</p>
-    //             <p>consumables: {data.consumables}</p>
-    //         </div>
-    //     )
-    // }
+    
     if(!error){
         return (
             <div className="container">

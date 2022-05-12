@@ -4,7 +4,7 @@ import ComponenteParametros from "./Components/ComponenteParametros/ComponentePa
 import Formularios from "./Components/Formularios/Formularios";
 import Home from "./Components/Home/Home";
 import LukeAPI from "./Components/LukeAPI";
-import People from "./Components/People";
+import PeopleId from "./Components/PeopleId";
 import PokemonAPI from "./Components/PokemonAPI";
 
 const App = () => {
@@ -23,7 +23,7 @@ const App = () => {
           <Route path="/api" exact render={()=> <ComponenteAPI />} />
           <Route path="/formularios"  render={() => <Formularios />}/>
           <Route path="/api/pokemon" render={()=> <PokemonAPI />} />
-          <Route path="/:id" exact render={()=><People url={"https://swapi.dev/api/people/"} />} />
+          <Route path="/:id" exact render={()=><PeopleId url={"https://swapi.dev/api/people/"} />} />
           {/* <Route path="/:palabra" exact render={() => <ComponenteParametros />}/> */}
           <Route path="/:palabra/:color/:bg" exact render={() => <ComponenteParametros />}/>
           <Route path="/api/lukeapi" render={() => <LukeAPI />}/>
