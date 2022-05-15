@@ -9,18 +9,26 @@ const Formularios = (props) => {
     const [last_name_error, setLast_name_error] = useState("");
 
     const [email, setEmail] = useState("");
+    const [email_error, setEmail_error] = useState("");
 
     const [password, setPassword] = useState("");
     const [passwordError, setPasswordError] = useState("");
 
     const [confirm, setConfirm] = useState("");
+    const [confirm_error, setConfirm_error] = useState("");
+
     const [verificacion, setVerificacion] = useState(false);
 
     const createUser = (event) => {
         event.preventDefault();
-        const newUser = { first_name, last_name, email, password };
-        console.log("Welcome", newUser);
-        setVerificacion( true );
+        if(password !== confirm | password.length < 8){
+            setVerificacion(false);
+        }else{
+            const newUser = { first_name, last_name, email, password };
+            console.log("Welcome", newUser);
+            setVerificacion( true );
+        }
+        
         
     }
     const validateFirstName = (e) => {
@@ -32,7 +40,7 @@ const Formularios = (props) => {
         } else {
             setFirst_name_error('');
         }
-    }
+    };
     const validateLastName = (e) => {
         setLast_name(e.target.value);
         if(e.target.value.length < 1) {
@@ -42,7 +50,19 @@ const Formularios = (props) => {
         } else {
             setLast_name_error('');
         }
-    }
+    };
+
+    const validateEmail = (e) => {
+        setEmail(e.target.value);
+        if(e.target.value.length < 1) {
+            setEmail_error("Email is required!");
+        } else if(e.target.value.length < 3) {
+            setEmail_error("Email must be 7 characters or longer!");
+        } else {
+            setEmail_error('');
+        }
+    };
+
     const validatePassword = (e) => {
         setPassword(e.target.value);
         if(e.target.value.length < 1) {
@@ -52,11 +72,28 @@ const Formularios = (props) => {
         } else {
             setPasswordError('');
         }
-    }
+    };
+
+    const checkedPassword = (e) => {
+        setConfirm(e.target.value);
+        // if(e.target.value.length < 1 ) {
+        //     setConfirm_error("Password is required!");
+        // } else if(e.target.value.length < 8) {
+        //     setConfirm_error("Password must be 8 characters or longer!");
+        // } else {
+        //     setConfirm_error('');
+        // }
+
+        if(e.target.value !== password){
+            setConfirm_error("no coinciden");
+        } else {
+            setConfirm_error("a");
+        }
+    };
     const showError = (atribute, message) => {
             return atribute ? message:message;
     }
-
+    //preguntar como hacer para que al enviar muestre errores
     return(
         <div className="container">
             <h1>Form</h1>
@@ -75,37 +112,35 @@ const Formularios = (props) => {
 
                 <div className="form-group">
                     <label>email: </label>
-                    <input type="text" className="form-control" onChange={(e) => setEmail(e.target.value)} ></input>
+                    <input type="text" className="form-control" onChange={validateEmail} ></input>
+                    <p style={{color:'red'}}>{showError(email,email_error)}</p>
                 </div>
 
                 <div className="form-group">
                     <label>Password: </label>
                     <input type="password" className="form-control" onChange={validatePassword} ></input>
-                    {
-                    password ?
-                    <p style={{color:'red'}}>{ passwordError }</p> :
-                    <p style={{color:'red'}}>{ passwordError }</p>
-                    }
+                    <p style={{color:'red'}}>{showError(password,passwordError)}</p>
                 </div>
 
                 <div className="form-group">
                     <label>Confirm: </label>
-                    <input type="password" className="form-control" onChange={(e) => setConfirm(e.target.value)} ></input>
+                    <input type="password" className="form-control" onChange={checkedPassword} ></input>
+                    <p style={{color:'red'}}>{showError(confirm,confirm_error)}</p>
                 </div>
                 <input type="submit" className="btn btn-success"></input>
             </form>
             <div>
-                <h1> Your Data</h1>
+                <h2> Your Data</h2>
                 <p>First Name: {first_name}</p>
                 <p>last Name: {last_name}</p>
                 <p>email : {email}</p>
                 <p>password : {password}</p>
                 <p>confirm : {confirm}</p>
-                <p>{
+                {
                     verificacion ? 
-                    <h3>Thank you for submitting the form!</h3> :
-                    <h3>Welcome, please submit the form.</h3>       
-                }</p>
+                    <p>Thank you for submitting the form!</p> :
+                    <p>Welcome, please submit the form.</p>       
+                }
             </div>
         </div>
     )

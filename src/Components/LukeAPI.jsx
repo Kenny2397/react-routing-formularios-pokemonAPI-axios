@@ -11,9 +11,11 @@ const LukeAPI = () => {
     const [obj, setObj] = useState({});
 
     const [category, setCategory] = useState("");
-    const [id, setId] = useState(0);
+    const [id, setId] = useState("");
 
     const [buscar, setBuscar] = useState("");
+
+    const [prevent, setPrevent] = useState(false);
 
     useEffect(() => {
         axios.get("https://swapi.dev/api")
@@ -28,6 +30,7 @@ const LukeAPI = () => {
         event.preventDefault();
         if(category !== "" & id !== ""){
             setBuscar(`${category}${id}`);
+            setPrevent(true);
         }
 
         // console.log(category,id);
@@ -56,17 +59,17 @@ const LukeAPI = () => {
             </form>
             <div>
                 {
-                    category === obj.people & buscar !== ""?
+                    category === obj.people & prevent === true?
                     <People url={buscar} />:
-                    category === obj.films & buscar !== ""?
+                    category === obj.films & prevent === true?
                     <Films url={buscar} />:
-                    category === obj.planets & buscar !== ""?
+                    category === obj.planets & prevent === true?
                     <Planets url ={buscar}/> :
-                    category === obj.species & buscar !== ""?
+                    category === obj.species & prevent === true?
                     <Species url = {buscar}/>:
-                    category === obj.vehicles & buscar !== ""?
+                    category === obj.vehicles & prevent === true?
                     <Vehicles url={buscar} />:
-                    category === obj.starships & buscar !== ""?
+                    category === obj.starships & prevent === true?
                     <Starships url ={buscar} />:
                     null
                 }
